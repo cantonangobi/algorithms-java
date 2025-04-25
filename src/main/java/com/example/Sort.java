@@ -1,6 +1,7 @@
 package com.example;
 
 public abstract class Sort {
+    //bubble sort
     public static void bubbleSort(int[] list){
         //if an element is greater than the next element, it bubbles up until it reaches an element greater than it, or the end ofthe list
         boolean unsorted = true;
@@ -19,6 +20,7 @@ public abstract class Sort {
         }
     }
 
+    //selection sort
     public static void selectionSort(int[] list){
         for (int i = 0; i < list.length; i++){
             int last_unsorted = list.length - 1 - i;
@@ -36,6 +38,7 @@ public abstract class Sort {
         }
     }
 
+    //insertion sort
     public static void insertionSort(int[] list){
         //we will loop through the list.
         //for each item, we will move it
@@ -63,6 +66,7 @@ public abstract class Sort {
 
     }
 
+    //merge sort
     public static void mergeSort(int[] list){
         int start = 0;
         int end = list.length - 1;
@@ -90,39 +94,6 @@ public abstract class Sort {
 
         merge(list, left_start, left_end, right_start, right_end);
 
-    }
-
-    public static int[] merge(int[] left_list, int[] right_list){
-        int total_size = left_list.length + right_list.length;
-        int[] merged_list = new int[total_size];
-
-        int left_index = 0;
-        int right_index = 0;
-        int merged_index = 0;
-        while (left_index < left_list.length && right_index < right_list.length){
-            if (left_list[left_index] < right_list[right_index]){
-                merged_list[merged_index] = left_list[left_index];
-                left_index ++;
-            }
-            else{
-                merged_list[merged_index] = right_list[right_index];
-                right_index ++;
-            }
-            merged_index ++;
-        }
-
-        while (left_index < left_list.length) {
-            merged_list[merged_index] = left_list[left_index];
-            merged_index ++;
-            left_index ++;
-        }
-        while (right_index < right_list.length){
-            merged_list[merged_index] = right_list[right_index];
-            merged_index ++;
-            right_index ++;
-        }
-
-        return merged_list;
     }
 
     public static void merge(int[] list, int left_start, int left_end, int right_start, int right_end){
@@ -161,6 +132,40 @@ public abstract class Sort {
 
             list[i] = merged_list[i];
         }
+
+    }
+
+    //quick sort
+    public static void quickSort(int[] list){
+        quickSort(list, 0, list.length);
+    }
+
+    public static void quickSort(int[] list, int start, int end){
+        if (start >= end){
+            return;
+        }
+
+        int size = end - start;
+
+        int pivot = start + (size / 2);
+
+        int front_index = start;
+        int back_index = end;
+
+        while (front_index < pivot && back_index > pivot) {
+            while (list[front_index] <= list[pivot]){
+                front_index ++;
+            }
+            while (back_index >= list[pivot]){
+                back_index --;
+            }
+
+            int temp = list[front_index];
+            list[front_index] = list[back_index];
+            list[back_index] = temp;
+
+        }
+
 
     }
 
