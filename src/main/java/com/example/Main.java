@@ -4,23 +4,23 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        int[] list = {6, 4, 5, 4, 6, 2, 1, 3, 2};
+        int[] list = {7, 1, 5, 8, 4, 9, 2, 6, 3};
         // int[] list = {1, 2, 3, 4, 5};
         // System.err.println(list.length);
 
         System.out.println("Length: " + Basic.getLength(list));
         Basic.printList(list);
 
-        Sort.bubbleSort(list);
+        Sort.insertionSort(list);
 
         Basic.printList(list);
 
-        int[] list2 = {1, 2, 6, 4, 5, 6};
+        int[] list2 = {7, 2, 6, 4, 1, 5, 6, 2};
 
         System.out.println("Length: " + Basic.getLength(list2));
         Basic.printList(list2);
 
-        Sort.bubbleSort(list2);
+        Sort.insertionSort(list2);
 
         Basic.printList(list2);
 

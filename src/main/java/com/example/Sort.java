@@ -12,9 +12,11 @@ public abstract class Sort {
                 //we will loop through the list and for each element, if an element is greater than the next element, swap it
                 if (list[j] > list[j+1]){
                     unsorted = true;
-                    int temp = list[j];
-                    list[j] = list[j+1];
-                    list[j+1] = temp;
+                    // int temp = list[j];
+                    // list[j] = list[j+1];
+                    // list[j+1] = temp;
+
+                    swap(list, j, j+1);
                 }
             }
         }
@@ -31,9 +33,10 @@ public abstract class Sort {
                 }
             }
             if (largest_index != last_unsorted){
-                int temp = list[last_unsorted];
-                list[last_unsorted] = list[largest_index];
-                list[largest_index] = temp;
+                // int temp = list[last_unsorted];
+                // list[last_unsorted] = list[largest_index];
+                // list[largest_index] = temp;
+                swap(list, last_unsorted, largest_index);
             }
         }
     }
@@ -50,9 +53,10 @@ public abstract class Sort {
             int current_index = i;
             while (!sorted) {
                 if (list[current_index] < list[current_index-1]){
-                    int temp = list[current_index];
-                    list[current_index] = list[current_index-1];
-                    list[current_index-1] = temp;
+                    // int temp = list[current_index];
+                    // list[current_index] = list[current_index-1];
+                    // list[current_index-1] = temp;
+                    swap(list, current_index, current_index-1);
                     current_index = current_index - 1;
                     if (current_index == 0){
                         sorted = true;
@@ -137,36 +141,69 @@ public abstract class Sort {
 
     //quick sort
     public static void quickSort(int[] list){
-        quickSort(list, 0, list.length);
+        quickSort(list, 0, list.length - 1);
     }
 
     public static void quickSort(int[] list, int start, int end){
-        if (start >= end){
+        if (end <= start){
             return;
         }
 
-        int size = end - start;
+        int pivot = start +  (end - start)/2;
+        swap(list, end, pivot);
+        pivot = end;
 
-        int pivot = start + (size / 2);
 
         int front_index = start;
-        int back_index = end;
+        int back_index = end - 1;        
+        
+        
 
-        while (front_index < pivot && back_index > pivot) {
-            while (list[front_index] <= list[pivot]){
+        while (front_index < back_index){
+            while (front_index < pivot && list[front_index] < list[pivot] ) {
+                //from the front, find the next element that is greater than or equal to the pivot.
+                //if the current element is not greater than or equal to the pivot, increment the index until you reach the end
                 front_index ++;
             }
-            while (back_index >= list[pivot]){
-                back_index --;
+    
+            boolean in_order = false;
+            if (front_index == pivot){
+                in_order = true;
             }
-
-            int temp = list[front_index];
-            list[front_index] = list[back_index];
-            list[back_index] = temp;
-
+    
+            if (! in_order){
+                while (back_index > start && list[back_index] >= list[pivot] ) {
+                    //from the back, find the next element that is less than the pivot.
+                    //if the current element is not less than the pivot, decrement the index until you reach the beginning
+                    back_index --;
+                }
+                swap(list, front_index, back_index);
+                front_index ++;
+                back_index --;
+                // if (back_index > front_index) {
+                //     swap(list, front_index, back_index);
+                //     // front_index ++;
+                //     // back_index --;
+                // }
+                // else if (back_index <= front_index)
+                // {
+                //     break;
+                // }
+            }
         }
+        swap(list, front_index, pivot);
+        
 
 
+        quickSort(list, start, pivot - 1);
+        quickSort(list, pivot + 1, end);
+
+    }
+
+    public static void swap(int[] list, int i, int j){
+        int temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
     }
 
 }
