@@ -4,40 +4,44 @@ public abstract class Sort {
     //bubble sort
     public static void bubbleSort(int[] list){
         //if an element is greater than the next element, it bubbles up until it reaches an element greater than it, or the end ofthe list
-        boolean unsorted = true;
+        boolean is_unsorted = true; 
+        int unsorted_list_end = list.length - 1; //last unsorted element in the array
 
-        while (unsorted){
-            unsorted = false;
-            for (int j = 0; j < list.length-1; j++){
-                //we will loop through the list and for each element, if an element is greater than the next element, swap it
-                if (list[j] > list[j+1]){
-                    unsorted = true;
-                    // int temp = list[j];
-                    // list[j] = list[j+1];
-                    // list[j+1] = temp;
-
-                    swap(list, j, j+1);
+        while (is_unsorted){
+            is_unsorted = false; //assume that the list is sorted until you find an element out of place
+            for (int i = 0; i < unsorted_list_end; i++){
+                //we will loop through the list and if an element is out of place, 
+                //consider the list unsorted and swap it with the next element
+                if (list[i] > list[i+1]){ // i
+                    is_unsorted = true;
+                    swap(list, i, i+1);
                 }
             }
+            //update the index of the last unsorted item in the array
+            unsorted_list_end -= 1;
         }
     }
 
     //selection sort
     public static void selectionSort(int[] list){
+        //select the largest value in the list and move it to the end of the unsorted list. keep doing this until the list is sorted
+        
+        int unsorted_list_end = list.length - 1; //set the end of the unsorted list to be the end of the list
+
         for (int i = 0; i < list.length; i++){
-            int last_unsorted = list.length - 1 - i;
-            int largest_index = 0;
-            for (int j = 0; j <= last_unsorted; j++){
+            //repeat this for as long as the list is
+            int largest_index = unsorted_list_end; // assume that the value at the end of the list is the largest value
+            for (int j = 0; j < unsorted_list_end; j++){
+                //loop through the unsorted list looking for the largest value. 
+                //set the value of the largest index to the value of the largest index
                 if (list[j] > list[largest_index]){
                     largest_index = j;
                 }
             }
-            if (largest_index != last_unsorted){
-                // int temp = list[last_unsorted];
-                // list[last_unsorted] = list[largest_index];
-                // list[largest_index] = temp;
-                swap(list, last_unsorted, largest_index);
+            if (largest_index != unsorted_list_end){
+                swap(list, unsorted_list_end, largest_index);
             }
+            unsorted_list_end -= 1;
         }
     }
 

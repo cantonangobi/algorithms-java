@@ -11,7 +11,7 @@ public class Main {
         System.out.println("Length: " + Basic.getLength(list));
         Basic.printList(list);
 
-        Sort.insertionSort(list);
+        Sort.selectionSort(list);
 
         Basic.printList(list);
 
@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Length: " + Basic.getLength(list2));
         Basic.printList(list2);
 
-        Sort.insertionSort(list2);
+        Sort.selectionSort(list2);
 
         Basic.printList(list2);
 
