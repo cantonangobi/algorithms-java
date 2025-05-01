@@ -47,30 +47,19 @@ public abstract class Sort {
 
     //insertion sort
     public static void insertionSort(int[] list){
-        //we will loop through the list.
-        //for each item, we will move it
+        //Select an element and insert it in the correct position of the sorted list
+        
+        int end = list.length - 2; // assume that the last value is sorted 
 
         for (int i = 1; i < list.length; i++){
-            // int unsorted_start = i;
-            boolean sorted = false;
-
-            int current_index = i;
-            while (!sorted) {
-                if (list[current_index] < list[current_index-1]){
-                    // int temp = list[current_index];
-                    // list[current_index] = list[current_index-1];
-                    // list[current_index-1] = temp;
-                    swap(list, current_index, current_index-1);
-                    current_index = current_index - 1;
-                    if (current_index == 0){
-                        sorted = true;
-                    }
-                }
-                else{
-                    sorted = true;
+            for (int j = end; j >= 0; j--){
+                if(list[j] > list[j+1]){
+                    swap(list, j, j+1);
                 }
             }
         }
+
+        
 
     }
 
@@ -153,54 +142,117 @@ public abstract class Sort {
             return;
         }
 
-        int pivot = start +  (end - start)/2;
-        swap(list, end, pivot);
+        int pivot = start + (end - start)/2;
+        swap(list, pivot, end);
         pivot = end;
 
+        int left_bigger = start -1;
+        int right_smaller = pivot;
 
-        int front_index = start;
-        int back_index = end - 1;        
-        
-        
-
-        while (front_index < back_index){
-            while (front_index < pivot && list[front_index] < list[pivot] ) {
-                //from the front, find the next element that is greater than or equal to the pivot.
-                //if the current element is not greater than or equal to the pivot, increment the index until you reach the end
-                front_index ++;
-            }
-    
-            boolean in_order = false;
-            if (front_index == pivot){
-                in_order = true;
-            }
-    
-            if (! in_order){
-                while (back_index > start && list[back_index] >= list[pivot] ) {
-                    //from the back, find the next element that is less than the pivot.
-                    //if the current element is not less than the pivot, decrement the index until you reach the beginning
-                    back_index --;
+        while (true) {
+            for (int i = left_bigger + 1; i <= pivot; i ++){
+                if (list[i] > list[pivot]){
+                    left_bigger = i;
+                    break;
                 }
-                swap(list, front_index, back_index);
-                front_index ++;
-                back_index --;
-                // if (back_index > front_index) {
-                //     swap(list, front_index, back_index);
-                //     // front_index ++;
-                //     // back_index --;
-                // }
-                // else if (back_index <= front_index)
-                // {
-                //     break;
-                // }
             }
-        }
-        swap(list, front_index, pivot);
-        
+            if (left_bigger < start){
+                return;
+            }
+    
+            
+            for (int i = right_smaller-1; i >= start; i --){
+                if(list[i] < list[pivot]){
+                    right_smaller = i;
+                    break;
+                }
+            }
+            
+            if (right_smaller == pivot || left_bigger >= right_smaller){
+                // swap(list, left_bigger, pivot);
+                // pivot = left_bigger;
+                break;
+            }
 
+            // if (left_bigger >= right_smaller){
+            //     // swap(list, left_bigger, pivot);
+            //     // pivot = left_bigger;
+            //     break;
+            // }
+
+            swap(list, left_bigger, right_smaller);
+        }
+
+        swap(list, left_bigger, pivot);
+        pivot = left_bigger;
 
         quickSort(list, start, pivot - 1);
-        quickSort(list, pivot + 1, end);
+        quickSort(list, pivot + 1, end);   
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // if (end <= start){
+        //     return;
+        // }
+
+        // int pivot = start +  (end - start)/2;
+        // swap(list, end, pivot);
+        // pivot = end;
+
+
+        // int front_index = start;
+        // int back_index = end - 1;        
+        
+        
+
+        // while (front_index < back_index){
+        //     while (front_index < pivot && list[front_index] < list[pivot] ) {
+        //         //from the front, find the next element that is greater than or equal to the pivot.
+        //         //if the current element is not greater than or equal to the pivot, increment the index until you reach the end
+        //         front_index ++;
+        //     }
+    
+        //     boolean in_order = false;
+        //     if (front_index == pivot){
+        //         in_order = true;
+        //     }
+    
+        //     if (! in_order){
+        //         while (back_index > start && list[back_index] >= list[pivot] ) {
+        //             //from the back, find the next element that is less than the pivot.
+        //             //if the current element is not less than the pivot, decrement the index until you reach the beginning
+        //             back_index --;
+        //         }
+        //         swap(list, front_index, back_index);
+        //         front_index ++;
+        //         back_index --;
+        //         // if (back_index > front_index) {
+        //         //     swap(list, front_index, back_index);
+        //         //     // front_index ++;
+        //         //     // back_index --;
+        //         // }
+        //         // else if (back_index <= front_index)
+        //         // {
+        //         //     break;
+        //         // }
+        //     }
+        // }
+        // swap(list, front_index, pivot);
+        
+
+
+        // quickSort(list, start, pivot - 1);
+        // quickSort(list, pivot + 1, end);
 
     }
 

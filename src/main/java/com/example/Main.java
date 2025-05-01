@@ -4,14 +4,14 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
 
-        int[] list = {7, 1, 5, 8, 4, 9, 2, 6, 3};
+        int[] list = {7, 9, 5, 1, 8, 3, 2, 6, 4};
         // int[] list = {1, 2, 3, 4, 5};
         // System.err.println(list.length);
 
         System.out.println("Length: " + Basic.getLength(list));
         Basic.printList(list);
 
-        Sort.selectionSort(list);
+        Sort.quickSort(list);
 
         Basic.printList(list);
 
@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Length: " + Basic.getLength(list2));
         Basic.printList(list2);
 
-        Sort.selectionSort(list2);
+        Sort.quickSort(list2);
 
         Basic.printList(list2);
 

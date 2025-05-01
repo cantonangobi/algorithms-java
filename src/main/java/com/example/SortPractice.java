@@ -1,6 +1,12 @@
 package com.example;
 
 public abstract class SortPractice{
+    static void swap(int[] list, int i, int j){
+        int temp = list[i];
+        list[i] = list[j];
+        list[j] = temp;
+    }
+
     public static void bubbleSort(int[] list){
         boolean sorted = false;
         int end = list.length - 1;
@@ -15,6 +21,19 @@ public abstract class SortPractice{
             }
             end = end-1;
         }
+    }
+
+    public static void insertionSort(int[] list){
+        int end = list.length - 2;
+
+        for (int i = 0; i < list.length; i ++){
+            for (int j = end; j >= 0; j--){
+                if (list[j] > list[j+1]){
+                    swap(list, j, j+1);
+                }
+            }
+        }
+
     }
 
     public static void selectionSort(int[] list){
@@ -34,9 +53,13 @@ public abstract class SortPractice{
         
     }
 
-    static void swap(int[] list, int i, int j){
-        int temp = list[i];
-        list[i] = list[j];
-        list[j] = temp;
+    public static void quickSort(int[] list){
+        quickSort(list);
     }
+
+    public static void quickSort(int[] list, int start, int end){
+
+    }
+
+    
 }
